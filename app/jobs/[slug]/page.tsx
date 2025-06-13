@@ -38,12 +38,3 @@ const Container = styled.div`
   text-align: center; /* Center text inside the container */
 `;
 
-const Box = styled.div`
-  justify-content: center;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: gray;
-  text-align: center;
-  margin: 1rem;
-`;
