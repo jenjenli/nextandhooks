@@ -117,8 +117,4 @@ const ImageContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const LoadingWrapper = styled.div`
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 2rem;
-`;
+
