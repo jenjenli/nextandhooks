@@ -30,11 +30,11 @@ export default function JobDetails() {
 }
 
 const Container = styled.div`
-  display: flex; /* Enable Flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  flex-direction: column; /* Stack items vertically */
-  text-align: center; /* Center text inside the container */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+  flex-direction: column; 
+  text-align: center; 
 `;
 
