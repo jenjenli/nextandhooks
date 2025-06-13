@@ -34,6 +34,9 @@ export default function JobsList() {
           const filteredJobs = data.jobs.filter((job: Job) =>
             job.jobGeo.toLowerCase().includes(searchTerm)
           );
+          if (filteredJobs.length === 0) {
+            alert('No jobs found for this location');
+          }
           setJobs(filteredJobs);
         });
     
