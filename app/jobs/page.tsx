@@ -28,7 +28,7 @@ export default function JobsList() {
   const searchTerm = searchParams.get('search')?.toLowerCase() || '';
 
   useEffect(() => {
-      fetch('/api/jobs')
+      fetch('https://job-backend-topaz.vercel.app/api/jobs')
         .then((res) => res.json())
         .then((data) => {
           const filteredJobs = data.jobs.filter((job: Job) =>

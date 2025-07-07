@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const res = await fetch('https://jobicy.com/api/v2/remote-jobs', {
+  const res = await fetch('https://job-backend-topaz.vercel.app/api/jobs', {
   });
 
   if (!res.ok) {
