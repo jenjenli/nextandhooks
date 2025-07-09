@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'; 
 import styled from 'styled-components';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ type Job = {
   salaryCurrency: string;
 };
 
-export default function JobsList() {
+function JobsListContent() {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   const searchParams = useSearchParams();
@@ -93,6 +93,14 @@ export default function JobsList() {
   );
 }
 
+export default function JobsList() {
+  return (
+    <Suspense fallback={<div>Loading jobs...</div>}>
+      <JobsListContent />
+    </Suspense>
+  );
+}
+
 const Heading = styled.h1`
   text-align: center;
 `;
@@ -119,5 +127,3 @@ const ImageContainer = styled.div`
   align-items: center;
   margin-top: 1rem;
 `;
-
-
