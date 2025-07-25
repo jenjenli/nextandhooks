@@ -57,7 +57,6 @@ export async function GET(req: NextRequest) {
     const data = await res.json();
     return NextResponse.json(data);
   } catch {
-    // Removed unused 'error' variable
     return NextResponse.json({ error: 'Backend request failed' }, { status: 502 });
   }
 }
