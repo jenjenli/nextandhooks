@@ -5,6 +5,10 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const MAX_REQUESTS = 5; 
 const WINDOW_SIZE_IN_MS = 60 * 1000;
 
+const ROUTE_MAP: Record<string, string> = {
+  '/api/jobs': 'https://job-backend-topaz.vercel.app/api/jobs',
+};
+
 export async function GET(req: NextRequest) {
   const forwarded = req.headers.get('x-forwarded-for');
   const ip = forwarded ? forwarded.split(',')[0].trim() : 'unknown';
@@ -33,22 +37,35 @@ export async function GET(req: NextRequest) {
     rateLimitMap.set(ip, rateLimitInfo);
   }
 
-  const res = await fetch('https://job-backend-topaz.vercel.app/api/jobs');
-  
-  if (!res.ok) {
-    return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: res.status });
+  const pathname = new URL(req.url).pathname;
+  const targetURL = ROUTE_MAP[pathname];
+
+  if (!targetURL) {
+    return NextResponse.json({ error: 'Route not found' }, { status: 404 });
   }
 
-  const data = await res.json();
-  return NextResponse.json(data);
+  try {
+    const res = await fetch(targetURL, {
+      method: 'GET',
+      headers: req.headers,
+    });
+
+    if (!res.ok) {
+      return NextResponse.json({ error: 'Failed to fetch from target' }, { status: res.status });
+    }
+
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch {
+    // Removed unused 'error' variable
+    return NextResponse.json({ error: 'Backend request failed' }, { status: 502 });
+  }
 }
 
 export async function OPTIONS() {
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
